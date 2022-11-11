@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollision : MonoBehaviour
+public class NPCBeheaviour : MonoBehaviour
 {
+    public NPCData data;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,13 +17,4 @@ public class PlayerCollision : MonoBehaviour
     {
         
     }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if(col.gameObject.name == "DeathWall")
-        {
-            Destroy(gameObject);
-        }        
-    }
 }
- 
