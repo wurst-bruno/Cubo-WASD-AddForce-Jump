@@ -2,43 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] GameObject dialogueUI;
-    TextMeshProUGUI textodeldialogo;
+    [SerializeField]TextMeshProUGUI textodeldialogo;
+    [SerializeField] string[] frasesDialogo;
+    [SerializeField] int posicionfrase;
+    [SerializeField] TextMeshProUGUI textoboton;
+    [SerializeField] bool hastalked;
     // Start is called before the first frame update
     void Start()
     {
-        dialogueUI.SetActive(false);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
-
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("NPC"))
+
+        //al entrar activa la ui del dialogo
+        if (other.gameObject.CompareTag("npc"))
         {
-            textodeldialogo.text = "Hola Forastero!";
-
-            dialogueUI.SetActive(true);
+            frasesDialogo = other.gameObject.GetComponent<NPCBEHAVIOUR>().data.dialogueFrases;
+            if (!hastalked)
+            {
+                
+                textodeldialogo.text = "Hola forastero";
+                dialogueUI.SetActive(true);
+            }
+            else
+            {
+                textodeldialogo.text = "Ya hemos hablado";
+                dialogueUI.SetActive(true);
+                textoboton.text = "cerrar";
+            }
         }
-
-        //al entrar activa la ui de dialogo 
     }
-
     void OnTriggerExit(Collider other)
     {
-        //al salir desactiva la ui de dialogo
-        if (other.gameObject.CompareTag("NPC"))
+        //al salir desaparece el dialogo
+        if (other.gameObject.CompareTag("npc"))
         {
             dialogueUI.SetActive(false);
         }
     }
+    public void nextphrase()
+    {
+        if (posicionfrase < frasesDialogo.Length)
+        {
 
-
+            textodeldialogo.text = frasesDialogo[0];
+            posicionfrase++;
+            if (posicionfrase==frasesDialogo.Length)
+            {
+                textoboton.text = "cerrar";
+                
+            }
+        }
+        else
+        {
+            dialogueUI.SetActive(false);
+            hastalked=true;
+        }
+        
+    }
 }

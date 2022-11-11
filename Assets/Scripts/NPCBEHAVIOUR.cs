@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollision : MonoBehaviour
+public class NPCBEHAVIOUR : MonoBehaviour
 {
+    public npcdata data;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,13 +16,4 @@ public class PlayerCollision : MonoBehaviour
     {
         
     }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if(col.gameObject.name == "npc")
-        {
-          
-        }        
-    }
 }
- 
